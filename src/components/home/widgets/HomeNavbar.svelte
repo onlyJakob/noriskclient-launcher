@@ -3,9 +3,9 @@
   import { defaultUser } from "../../../stores/credentialsStore.js";
   import { get } from "svelte/store";
   import { push } from "svelte-spa-router";
-  import { appWindow } from "@tauri-apps/api/window";
+  // import { webviewWindow } from "@tauri-apps/api/webviewWindow";
   import { onMount } from "svelte";
-  import { invoke } from "@tauri-apps/api";
+  import { invoke } from "@tauri-apps/api/core";
   import { getNoRiskToken, noriskLog, getFeatureWhitelist, featureWhitelist, getNoRiskUser } from "../../../utils/noriskUtils.js";
   import { openInputPopup } from "../../../utils/popupUtils.js";
   import { addNotification } from "../../../stores/notificationStore.js";
@@ -58,7 +58,7 @@
       },
       {
         name: "QUIT",
-        onClick: () => appWindow.close(),
+        onClick: () => webviewWindow.close(),
         condition: true,
         className: "quit",
       },

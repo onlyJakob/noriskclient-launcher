@@ -1,6 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
-    import { invoke } from "@tauri-apps/api";
+    import { onMount } from 'svelte';
+    import { invoke } from "@tauri-apps/api/core";
     import { pop } from "svelte-spa-router";
     import VirtualList from "../../utils/VirtualList.svelte";
     import CustomServerInfoPopup from "./CustomServerInfoPopup.svelte";

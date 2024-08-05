@@ -1,5 +1,5 @@
 <script>
-    import { invoke } from "@tauri-apps/api";
+    import { invoke } from "@tauri-apps/api/core";
     import { createEventDispatcher } from "svelte";
     import { defaultUser } from "../../../stores/credentialsStore.js";
     import { addNotification } from "../../../stores/notificationStore.js";

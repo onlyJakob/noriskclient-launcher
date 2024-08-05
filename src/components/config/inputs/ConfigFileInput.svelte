@@ -1,6 +1,6 @@
 
 <script>
-  import { open } from '@tauri-apps/api/dialog';
+  import { open } from '@tauri-apps/plugin-dialog';
   import { addNotification } from '../../../stores/notificationStore.js';
 
   export let title;

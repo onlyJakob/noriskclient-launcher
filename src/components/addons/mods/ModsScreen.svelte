@@ -1,6 +1,6 @@
 <script>
-  import { invoke } from "@tauri-apps/api";
-  import { open } from "@tauri-apps/api/dialog";
+  import { invoke } from "@tauri-apps/api/core";
+  import { open } from "@tauri-apps/plugin-dialog";
   import ModrinthSearchBar from "../widgets/ModrinthSearchBar.svelte";
   import ModItem from "./ModItem.svelte";
   import { tick, onMount } from "svelte";

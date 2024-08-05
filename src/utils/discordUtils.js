@@ -2,7 +2,7 @@ import { get } from "svelte/store";
 import { defaultUser } from "../stores/credentialsStore.js";
 import { launcherOptions } from "../stores/optionsStore.js";
 import { noriskLog } from "./noriskUtils.js";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { addNotification } from "../stores/notificationStore.js";
 
 export async function openDiscordIntegration() {

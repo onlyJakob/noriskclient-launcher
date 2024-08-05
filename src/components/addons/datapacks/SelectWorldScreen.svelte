@@ -1,5 +1,5 @@
 <script>
-  import { invoke } from "@tauri-apps/api";
+  import { invoke } from "@tauri-apps/api/core";
   import { onMount } from "svelte";
   import WorldItem from "./WorldItem.svelte";
   import DatapacksScreen from "./DatapacksScreen.svelte";

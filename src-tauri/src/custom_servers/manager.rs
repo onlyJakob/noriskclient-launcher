@@ -2,7 +2,8 @@ use std::{path::PathBuf, sync::{Arc, Mutex}};
 
 use anyhow::{Ok, Result};
 use log::{debug, error, info};
-use tauri::Window;
+use tauri::WebviewWindow;
+use tauri::Emitter;
 use tokio::{fs, process::Child};
 
 use crate::{app::{api::ApiEndpoints, app_data::LauncherOptions, gui::get_options}, custom_servers::{models::{CustomServerEventPayload, CustomServerTokenResponse}, providers::forwarding_manager::ForwardingManagerProvider}, minecraft::{java::{find_java_binary, jre_downloader, JavaRuntime}, progress::ProgressUpdate}, LAUNCHER_DIRECTORY};
@@ -14,7 +15,7 @@ use super::{models::{CustomServer, CustomServerProgressEventPayload, CustomServe
 pub struct CustomServerManager {}
 
 impl CustomServerManager {
-    pub async fn initialize_server(window: &Arc<Mutex<Window>>, server: CustomServer, additional_data: Option<&str>) -> Result<()> {
+    pub async fn initialize_server(window: &Arc<Mutex<WebviewWindow>>, server: CustomServer, additional_data: Option<&str>) -> Result<()> {
         match server.r#type {
             CustomServerType::VANILLA => {
                 let label = ProgressUpdate::SetLabel("Downloading server jar...".to_owned());
@@ -48,7 +49,7 @@ impl CustomServerManager {
         Ok(())
     }
 
-    pub async fn run_server(custom_server: CustomServer, options: &LauncherOptions, token: String, window_mutex: Arc<Mutex<Window>>) -> Result<Child> {
+    pub async fn run_server(custom_server: CustomServer, options: LauncherOptions, token: String, window_mutex: Arc<Mutex<WebviewWindow>>) -> Result<Child> {
         // JRE download
         let runtimes_folder = options.data_path_buf().join("runtimes");
         if !runtimes_folder.exists() {
@@ -103,7 +104,7 @@ impl CustomServerManager {
         Ok(running_task)
     }
 
-    pub async fn read_and_process_server_log_file(window: &Arc<Mutex<Window>>, server_id: &str) -> Result<()> {
+    pub async fn read_and_process_server_log_file(window: &Arc<Mutex<WebviewWindow>>, server_id: &str) -> Result<()> {
         let path = LAUNCHER_DIRECTORY.data_dir().join("custom_servers").join(server_id).join("logs").join("latest.log");
         let content = fs::read_to_string(&path).await.map_err(|e| format!("Failed to read log file: {}", e)).unwrap();
         let lines: Vec<String> = content.lines().collect::<Vec<&str>>().iter().map(|line| line.to_string()).collect();
@@ -163,7 +164,8 @@ impl CustomServerManager {
         fs::write(&path, content).await.unwrap();
     }
 
-    fn handle_stdout(window: &Arc<Mutex<Window>>, server_id: &str, data: &[u8]) -> anyhow::Result<()> {
+    fn handle_stdout(window: &Arc<Mutex<WebviewWindow>>, server_id: &str, data: &[u8]) -> anyhow::Result<()> {
+=======
         let data = String::from_utf8(data.to_vec())?;
         if data.is_empty() || data.to_string().contains("RCON Client /127.0.0.1") {
             return Ok(()); // ignore empty lines
@@ -174,7 +176,7 @@ impl CustomServerManager {
         Ok(())
     }
     
-    fn handle_stderr(window: &Arc<Mutex<Window>>, server_id: &str, data: &[u8]) -> anyhow::Result<()> {
+    fn handle_stderr(window: &Arc<Mutex<WebviewWindow>>, server_id: &str, data: &[u8]) -> anyhow::Result<()> {
         let data = String::from_utf8(data.to_vec())?;
         if data.is_empty() {
             return Ok(()); // ignore empty lines
@@ -185,7 +187,7 @@ impl CustomServerManager {
         Ok(())
     }
     
-    fn handle_progress(window: &Arc<std::sync::Mutex<Window>>, server_id: &str, progress_update: ProgressUpdate) -> anyhow::Result<()> {
+    fn handle_progress(window: &Arc<std::sync::Mutex<WebviewWindow>>, server_id: &str, progress_update: ProgressUpdate) -> anyhow::Result<()> {
         window.lock().unwrap().emit("custom-server-progress-update", CustomServerProgressEventPayload { server_id: server_id.to_owned(), data: progress_update })?;
         Ok(())
     }

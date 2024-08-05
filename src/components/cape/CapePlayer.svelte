@@ -1,7 +1,7 @@
 <script>
 	import { defaultUser } from './../../stores/credentialsStore.js';
     import { SkinViewer } from "skinview3d";
-    import { invoke } from "@tauri-apps/api/tauri";
+    import { invoke } from "@tauri-apps/api/core";
     import { launcherOptions } from "../../stores/optionsStore.js";
     import { addNotification } from "../../stores/notificationStore.js";
     import Elytra from "../../images/elytra.webp";

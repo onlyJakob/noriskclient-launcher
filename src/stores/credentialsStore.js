@@ -1,4 +1,4 @@
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { addNotification } from "./notificationStore.js";
 import { writable } from "svelte/store";
 import { noriskError, noriskLog } from "../utils/noriskUtils.js";
