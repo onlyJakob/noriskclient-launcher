@@ -1,6 +1,6 @@
 <script>
   import { invoke } from "@tauri-apps/api/core";
-  import { remove } from "@tauri-apps/plugin-fs";
+  import { remove, watch } from "@tauri-apps/plugin-fs";
   import { open } from "@tauri-apps/plugin-dialog";
   import ModrinthSearchBar from "../widgets/ModrinthSearchBar.svelte";
   import DatapackItem from "./DatapackItem.svelte";
