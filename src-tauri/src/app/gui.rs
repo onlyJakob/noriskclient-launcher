@@ -1703,7 +1703,7 @@ async fn check_feature_whitelist(feature: &str, options: LauncherOptions, creden
 /// Runs the GUI and returns when the window is closed.
 pub fn gui_main() {
     tauri::Builder::default()
-        .on_window_event(move |window, event| match event {
+        .on_window_event(move |_, event| match event {
             WindowEvent::Destroyed => {
                 info!("Window destroyed, quitting application");
             }
