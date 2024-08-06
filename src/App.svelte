@@ -28,7 +28,7 @@
 
   onMount(async () => {
     setTimeout(async () => {
-      await WebviewWindow.show();
+      await getCurrentWebviewWindow().show();
     }, 300);
     await checkIfClientIsRunning();
     await fetchOptions();
