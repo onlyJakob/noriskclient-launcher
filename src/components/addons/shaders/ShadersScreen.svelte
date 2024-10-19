@@ -5,7 +5,6 @@
   import ModrinthSearchBar from "../widgets/ModrinthSearchBar.svelte";
   import ShaderItem from "./ShaderItem.svelte";
   import { tick, onDestroy, onMount } from "svelte";
-  import { watch } from "tauri-plugin-fs-watch-api";
   import { listen } from "@tauri-apps/api/event";
   import { branches, currentBranchIndex } from "../../../stores/branchesStore.js";
   import { launcherOptions } from "../../../stores/optionsStore.js";

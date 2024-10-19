@@ -49,7 +49,7 @@ impl CustomServerManager {
         Ok(())
     }
 
-    pub async fn run_server(custom_server: CustomServer, options: LauncherOptions, token: String, window_mutex: Arc<Mutex<WebviewWindow>>) -> Result<Child> {
+    pub async fn run_server(custom_server: CustomServer, options: &LauncherOptions, token: String, window_mutex: Arc<Mutex<WebviewWindow>>) -> Result<Child> {
         // JRE download
         let runtimes_folder = options.data_path_buf().join("runtimes");
         if !runtimes_folder.exists() {
@@ -165,7 +165,6 @@ impl CustomServerManager {
     }
 
     fn handle_stdout(window: &Arc<Mutex<WebviewWindow>>, server_id: &str, data: &[u8]) -> anyhow::Result<()> {
-=======
         let data = String::from_utf8(data.to_vec())?;
         if data.is_empty() || data.to_string().contains("RCON Client /127.0.0.1") {
             return Ok(()); // ignore empty lines
